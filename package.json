@@ -1,0 +1,11 @@
+{
+  "name" : "management",
+  "version" : "1.0.0",
+  "scripts" : {
+    "client": "cd client && yarn start",
+    "server" : "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
