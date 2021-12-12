@@ -1,11 +1,15 @@
 {
-  "name" : "management",
-  "version" : "1.0.0",
-  "scripts" : {
+  "name": "management",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
     "client": "cd client && yarn start",
-    "server" : "nodemon server.js"
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "concurrently": "^6.4.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1"
   }
 }

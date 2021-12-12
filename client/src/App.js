@@ -22,34 +22,23 @@ const styles = (theme) => ({
   },
 });
 
-const customers = [
-  {
-    id: 1,
-    image: "https://picsum.photos/200",
-    name: "김철수",
-    birthday: "870422",
-    gender: "남자",
-    job: "회사원",
-  },
-  {
-    id: 2,
-    image: "https://picsum.photos/200",
-    name: "이영희",
-    birthday: "920122",
-    gender: "여자",
-    job: "인턴",
-  },
-  {
-    id: 3,
-    image: "https://picsum.photos/200",
-    name: "최영수",
-    birthday: "970630",
-    gender: "남자",
-    job: "대학생",
-  },
-];
-
 class App extends Component {
+  state = {
+    customers: "",
+  };
+
+  componentDidMount() {
+    this.callApi()
+      .then((res) => this.setState({ customers: res }))
+      .catch((err) => console.log(err)); // res=body
+  }
+
+  callApi = async () => {
+    const response = await fetch("/api/customers");
+    const body = await response.json(); //body에 json 데이터 받아옴
+    return body;
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -66,19 +55,21 @@ class App extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((c) => {
-              return (
-                <Customer
-                  key={c.id}
-                  id={c.id}
-                  image={c.image}
-                  name={c.name}
-                  birthday={c.birthday}
-                  gender={c.gender}
-                  job={c.job}
-                />
-              );
-            })}
+            {this.state.customers
+              ? this.state.customers.map((c) => {
+                  return (
+                    <Customer
+                      key={c.id}
+                      id={c.id}
+                      image={c.image}
+                      name={c.name}
+                      birthday={c.birthday}
+                      gender={c.gender}
+                      job={c.job}
+                    />
+                  );
+                })
+              : ""}
           </TableBody>
         </Table>
       </Paper>
