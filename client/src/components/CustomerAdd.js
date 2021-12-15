@@ -17,7 +17,7 @@ class CustomerAdd extends React.Component {
   addCustomer = () => {
     const url = "/api/customers";
     const formData = new FormData();
-    formData.append("file", this.state.file);
+    formData.append("image", this.state.file);
     formData.append("user", this.state.userName);
     formData.append("birthday", this.state.birthday);
     formData.append("gender", this.state.gender);
@@ -34,6 +34,15 @@ class CustomerAdd extends React.Component {
     e.preventDefault();
     this.addCustomer().then((response) => {
       console.log(response.data);
+      this.props.stateRefresh();
+    });
+    this.setState({
+      file: null,
+      userName: "",
+      birthday: "",
+      gender: "",
+      job: "",
+      fileName: "",
     });
   };
 
@@ -60,7 +69,7 @@ class CustomerAdd extends React.Component {
           name="file"
           file={this.state.file}
           value={this.state.fileName}
-          onchange={this.handleFileChange}
+          onChange={this.handleFileChange}
         />
         <br />
         이름 :{" "}
