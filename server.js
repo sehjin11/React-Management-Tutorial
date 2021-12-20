@@ -63,4 +63,21 @@ app.delete("/api/customers/:id", (req, res) => {
   });
 });
 
+app.post("/api/update", (req, res) => {
+  let sql = "update customer set name=?, birthday=?, job=? where id = ?";
+  let name = req.body.userName;
+  let birthday = req.body.birthday;
+  let job = req.body.job;
+  let id = req.body.id;
+  console.log(name);
+  console.log(birthday);
+  console.log(job);
+  console.log(id);
+  let params = [name, birthday, job, id];
+  connection.query(sql, params, (err, rows, fields) => {
+    res.send(rows);
+    console.log("err: " + err);
+  });
+});
+
 app.listen(5000, () => console.log("Listening on port 5000"));
